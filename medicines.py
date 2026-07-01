@@ -254,6 +254,47 @@ def update_medicine():
 
     print("\nMedicine Updated Successfully!")
 
+def delete_medicine():
+
+    medicines = pd.read_csv(MEDICINES_FILE)
+
+    if medicines.empty:
+
+        print("\nNo medicines available.")
+
+        return
+
+    medicine_id = input("\nEnter Medicine ID to delete : ").strip().upper()
+
+    if medicine_id not in medicines["Medicine_ID"].values:
+
+        print("\nMedicine not found.")
+
+        return
+
+    medicine = medicines[medicines["Medicine_ID"] == medicine_id].iloc[0]
+
+    print("\nMedicine Details")
+    print("-" * 35)
+
+    print(f"Medicine : {medicine['Medicine_Name']}")
+    print(f"Batch    : {medicine['Batch_No']}")
+    print(f"Quantity : {medicine['Quantity']}")
+
+    confirm = input("\nDelete this medicine? (Y/N) : ").strip().upper()
+
+    if confirm != "Y":
+
+        print("\nDeletion Cancelled.")
+
+        return
+
+    medicines = medicines[medicines["Medicine_ID"] != medicine_id]
+
+    medicines.to_csv(MEDICINES_FILE, index=False)
+
+    print("\nMedicine Deleted Successfully!")
+
 def medicine_menu():
 
     while True:
@@ -267,7 +308,8 @@ def medicine_menu():
         print("2. View Medicine")
         print("3. Search Medicine")
         print("4. Update Medicine")
-        print("5. Back")
+        print("5. Delete Medicine")
+        print("6. Back")
 
         choice = input("\nEnter Choice : ")
         if choice == "1":
@@ -279,6 +321,8 @@ def medicine_menu():
         elif choice == "4":
             update_medicine()
         elif choice == "5":
+            delete_medicine()
+        elif choice == "6":
             break
         else:
             print("Invalid Choice.")
