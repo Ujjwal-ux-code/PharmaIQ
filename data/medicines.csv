@@ -1,0 +1,2 @@
+Medicine_ID,SKU,Medicine_Name,Generic_Name,Category,Batch_No,Manufacturer,Supplier_ID,Purchase_Price,Selling_Price,Quantity,Expiry_Date
+MED001,TAB-DOL-001,Dolo 650,Paracetamol,Tablet,DOLO101,Micro Labs,SUP001,12.0,18.0,80,15-08-2028

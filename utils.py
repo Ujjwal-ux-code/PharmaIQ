@@ -11,18 +11,20 @@ def initialize_data():
 
     files = {
 
-        MEDICINES_FILE: [
+       MEDICINES_FILE: [
 
-            "Medicine_ID",
-            "Medicine_Name",
-            "Category",
-            "Batch_No",
-            "Manufacturer",
-            "Supplier_ID",
-            "Purchase_Price",
-            "Selling_Price",
-            "Quantity",
-            "Expiry_Date"
+           "Medicine_ID",
+           "SKU",
+           "Medicine_Name",
+           "Generic_Name",
+           "Category",
+           "Batch_No",
+           "Manufacturer",
+           "Supplier_ID",
+           "Purchase_Price",
+           "Selling_Price",
+           "Quantity",
+           "Expiry_Date"
 
         ],
 
@@ -115,6 +117,18 @@ def medicine_id():
 
     return f"MED{number:03d}"
 
+def generate_sku(category, medicine_name, medicines_df):
+
+    prefix = category[:3].upper()
+
+    medicine = medicine_name[:3].upper()
+
+    if medicines_df.empty:
+        number = 1
+    else:
+        number = len(medicines_df) + 1
+
+    return f"{prefix}-{medicine}-{number:03d}"
 
 def supplier_id():
 
