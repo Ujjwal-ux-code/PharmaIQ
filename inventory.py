@@ -366,3 +366,89 @@ def near_expiry():
     print(near_expiry_df.to_string(index=False))
 
     print("\nTotal Near Expiry Medicines :", len(near_expiry_df))
+
+
+def inventory_dashboard():
+
+    medicines = pd.read_csv(MEDICINES_FILE)
+
+    print("\n")
+    print("=" * 65)
+    print("                 📊 INVENTORY DASHBOARD")
+    print("=" * 65)
+
+    if medicines.empty:
+
+        print("\nNo medicines available.")
+
+        return
+
+    medicines["Quantity"] = medicines["Quantity"].astype(int)
+    medicines["Purchase_Price"] = medicines["Purchase_Price"].astype(float)
+
+    total_medicines = len(medicines)
+
+    total_units = medicines["Quantity"].sum()
+
+    inventory_value = (
+        medicines["Quantity"] *
+        medicines["Purchase_Price"]
+    ).sum()
+
+    low_stock = len(
+        medicines[
+            (medicines["Quantity"] > 0)
+            &
+            (medicines["Quantity"] <= LOW_STOCK_LIMIT)
+        ]
+    )
+
+    out_of_stock = len(
+        medicines[
+            medicines["Quantity"] == 0
+        ]
+    )
+
+    today = datetime.today().date()
+
+    expired = 0
+    near_expiry = 0
+
+    for expiry in medicines["Expiry_Date"]:
+
+        expiry_date = datetime.strptime(
+            expiry,
+            "%d-%m-%Y"
+        ).date()
+
+        days_left = (expiry_date - today).days
+
+        if days_left < 0:
+            expired += 1
+
+        elif days_left <= EXPIRY_ALERT_DAYS:
+            near_expiry += 1
+
+    highest_stock = medicines.loc[
+        medicines["Quantity"].idxmax()
+    ]
+
+    lowest_stock = medicines.loc[
+        medicines["Quantity"].idxmin()
+    ]
+
+    print(f"💊 Total Medicines         : {total_medicines}")
+    print(f"📦 Total Units             : {total_units}")
+    print(f"💰 Inventory Value         : ₹{inventory_value:.2f}")
+    print()
+
+    print(f"⚠️ Low Stock Medicines      : {low_stock}")
+    print(f"❌ Out of Stock Medicines   : {out_of_stock}")
+    print(f"📅 Expired Medicines       : {expired}")
+    print(f"⏰ Near Expiry Medicines   : {near_expiry}")
+    print()
+
+    print(f"📈 Highest Stock           : {highest_stock['Medicine_Name']} ({highest_stock['Quantity']})")
+    print(f"📉 Lowest Stock            : {lowest_stock['Medicine_Name']} ({lowest_stock['Quantity']})")
+
+    print("=" * 65)

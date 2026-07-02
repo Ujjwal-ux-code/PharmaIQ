@@ -9,7 +9,6 @@ from utils import (
 from medicines import medicine_menu
 from inventory import inventory_menu
 #from sales import sales_menu
-#from suppliers import supplier_menu
 #from reports import reports_menu
 
 
@@ -46,9 +45,8 @@ def main():
         print("1. 💊 Medicine Management")
         print("2. 📦 Inventory")
         print("3. 💰 Sales")
-        print("4. 🚚 Suppliers")
-        print("5. 📊 Reports")
-        print("6. 🚪 Exit")
+        print("4. 📊 Reports")
+        print("5. 🚪 Exit")
 
         choice = input("\nEnter Choice : ")
 
@@ -66,13 +64,9 @@ def main():
 
         elif choice == "4":
 
-            supplier_menu()
-
-        elif choice == "5":
-
             reports_menu()
 
-        elif choice == "6":
+        elif choice == "5":
 
             print("\nThank you for using PharmaIQ.")
             break
