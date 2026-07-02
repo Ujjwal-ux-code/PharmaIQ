@@ -7,7 +7,7 @@ from utils import (
 )
 
 from medicines import medicine_menu
-#from inventory import inventory_menu
+from inventory import inventory_menu
 #from sales import sales_menu
 #from suppliers import supplier_menu
 #from reports import reports_menu
