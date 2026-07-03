@@ -92,6 +92,9 @@ def sell_medicine():
 
     medicine = medicines.loc[index]
 
+    unit_price = float(medicine["Selling_Price"])
+    purchase_price = float(medicine["Purchase_Price"])
+
     current_stock = int(medicine["Quantity"])
 
     print(f"\nCurrent Stock : {current_stock}")
@@ -114,3 +117,107 @@ def sell_medicine():
 
         print("\nInsufficient Stock.")
         return
+    
+    discount = 0.0
+
+    total_amount = (unit_price * quantity) - discount
+
+    profit = (unit_price - purchase_price) * quantity
+    
+    unit_price = float(medicine["Selling_Price"])
+    purchase_price = float(medicine["Purchase_Price"])
+
+    discount = 0.0
+
+    total_amount = (unit_price * quantity) - discount
+
+    profit = (unit_price - purchase_price) * quantity
+
+    medicines.loc[index, "Quantity"] = current_stock - quantity
+
+    medicines.to_csv(MEDICINES_FILE, index=False)
+
+    sale = {
+
+        "Sale_ID": sale_id(),
+
+        "Medicine_ID": medicine["Medicine_ID"],
+
+        "Medicine_Name": medicine["Medicine_Name"],
+
+        "Quantity": quantity,
+
+        "Unit_Price": unit_price,
+
+        "Discount": discount,
+
+        "Total_Amount": total_amount,
+
+        "Profit": profit,
+
+        "Sale_Date": datetime.today().strftime("%d-%m-%Y"),
+
+        "Sale_Time": datetime.today().strftime("%H:%M:%S")
+
+    }
+
+    sales = pd.concat(
+        [sales, pd.DataFrame([sale])],
+        ignore_index=True
+    )
+
+    sales.to_csv(SALES_FILE, index=False)
+
+    print("\n")
+    print("=" * 60)
+    print("                 🧾 PHARMAIQ INVOICE")
+    print("=" * 60)
+
+    print(f"Sale ID        : {sale['Sale_ID']}")
+    print(f"Date           : {sale['Sale_Date']}")
+    print(f"Time           : {sale['Sale_Time']}")
+
+    print("-" * 60)
+
+    print(f"Medicine       : {medicine['Medicine_Name']}")
+    print(f"Medicine ID    : {medicine['Medicine_ID']}")
+    print(f"Quantity       : {quantity}")
+    print(f"Unit Price     : ₹{unit_price:.2f}")
+    print(f"Discount       : ₹{discount:.2f}")
+
+    print("-" * 60)
+
+    print(f"Total Amount   : ₹{total_amount:.2f}")
+    print(f"Profit Earned  : ₹{profit:.2f}")
+
+    print("=" * 60)
+    print("       Thank you for choosing PharmaIQ!")
+    print("=" * 60)
+
+def sales_history():
+
+    sales = pd.read_csv(SALES_FILE)
+
+    print("\n")
+    print("=" * 90)
+    print("                     📜 SALES HISTORY")
+    print("=" * 90)
+
+    if sales.empty:
+
+        print("\nNo sales found.")
+        return
+
+    print(
+
+    sales[
+        [
+            "Sale_ID",
+            "Medicine_Name",
+            "Quantity",
+            "Total_Amount",
+            "Sale_Date"
+        ]
+    ].to_string(index=False)
+
+)

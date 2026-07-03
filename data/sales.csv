@@ -1,1 +1,2 @@
-Sale_ID,Medicine_ID,Medicine_Name,Quantity,Unit_Price,DiscountTotal_Amount,Profit,Sale_Date,Sale_Time
+Sale_ID,Medicine_ID,Medicine_Name,Quantity,Unit_Price,DiscountTotal_Amount,Profit,Sale_Date,Sale_Time,Discount,Total_Amount
+SAL001,MED001,Dolo 650,3,18.0,,18.0,03-07-2026,11:18:05,0.0,54.0
