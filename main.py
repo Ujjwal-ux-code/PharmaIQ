@@ -8,7 +8,7 @@ from utils import (
 
 from medicines import medicine_menu
 from inventory import inventory_menu
-#from sales import sales_menu
+from sales import sales_menu
 #from reports import reports_menu
 
 
@@ -43,9 +43,9 @@ def main():
 
         print("\n")
         print("1. 💊 Medicine Management")
-        print("2. 📦 Inventory")
-        print("3. 💰 Sales")
-        print("4. 📊 Reports")
+        print("2. 📦 Inventory Management")
+        print("3. 💰 Sales & Billing")
+        print("4. 📊 Reports & Analytics")
         print("5. 🚪 Exit")
 
         choice = input("\nEnter Choice : ")

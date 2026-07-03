@@ -30,12 +30,16 @@ def initialize_data():
 
         SALES_FILE: [
 
-            "Sale_ID",
-            "Medicine_ID",
-            "Medicine_Name",
-            "Quantity",
-            "Total_Amount",
-            "Sale_Date"
+           "Sale_ID",
+           "Medicine_ID",
+           "Medicine_Name",
+           "Quantity",
+           "Unit_Price",
+           "Discount"
+           "Total_Amount",
+           "Profit",
+           "Sale_Date",
+           "Sale_Time"
 
         ],
 
